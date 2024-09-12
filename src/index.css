@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: sans-serif;
+  line-height: 1.5;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-rendering: optimizeLegibility;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+}
+
+@keyframes anime {
+  0% {
+    rotate: 0deg;
+  }
+  25% {
+    rotate: -8deg
+  }
+  50% {
+    rotate: 0deg
+  }
+  75% {
+    rotate: 8deg
+  }
+  100% {
+    rotate: 0deg
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(100vw);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.rotating-element {
+  animation: rotate .5s linear infinite;
+}
+
+.sliding-element {
+  animation: slideInFromLeft 1s forwards ease;
+}
+
+.animation {
+  animation: anime 700ms linear infinite;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+}
