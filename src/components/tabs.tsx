@@ -9,7 +9,7 @@ export function Tabs({ content }: { content: React.ReactNode }) {
   return (
     <div className="flex gap-2">
       <div className="flex-1">{content}</div>
-      <div className="grid grid-rows-4 gap-2">
+      <div className="grid gap-2">
         <TabButton onSelect={setActiveTab} activeTab={activeTab} name="game">
           Игра
         </TabButton>

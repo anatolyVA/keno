@@ -15,21 +15,22 @@ export function GamePanel() {
       }}
     >
       <div
-        className="flex flex-col bg-no-repeat bg-cover"
+        className="flex flex-col bg-no-repeat h-[192px] relative"
         style={{
           backgroundImage: `url(${headerImage})`,
+          backgroundSize: "cover"
         }}
       >
-        <BallsList />
+        {/*<BallsList />*/}
         <GameTimer seconds={200} />
       </div>
-      <div className="grid grid-cols-[6fr_3fr] gap-8 flex-1 px-9 py-7">
-        <Tabs content={<ButtonsGrid />} />
-        <div className="grid grid-rows-[1fr_3fr_6fr] gap-2">
-          <header>jackpot</header>
-          <div className="bg-black/20">abc</div>
-          <div className="bg-black/20">abc</div>
-        </div>
+      <div className="grid grid-cols-[6fr_3fr] gap-8 h-full px-9 py-7">
+        {/*<Tabs content={<ButtonsGrid />} />*/}
+        {/*<div className="grid gap-2">*/}
+        {/*  <header>jackpot</header>*/}
+        {/*  <div className="bg-black/20">abc</div>*/}
+        {/*  <div className="bg-black/20">abc</div>*/}
+        {/*</div>*/}
       </div>
       <GameControlPanel />
     </div>

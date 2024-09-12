@@ -4,7 +4,7 @@ import { GamePanel } from "./game.panel.tsx";
 
 export function Game() {
   return (
-    <div className="bg-[#040c17]/80 backdrop-blur-sm w-[1326px] h-[786px] max-h-[786px] flex flex-col">
+    <div className="bg-[#040c17]/80 backdrop-blur-sm w-[77vw] flex flex-col frame">
       <GamePanelHeader />
       <GamePanel />
       <GamePanelFooter />

@@ -6,7 +6,7 @@
   font-family: sans-serif;
   line-height: 1.5;
   font-weight: 300;
-  font-size: 16px;
+  font-size: calc(0.4em + 0.5vw);
   letter-spacing: 1px;
   text-rendering: optimizeLegibility;
 
@@ -19,6 +19,7 @@
   -moz-osx-font-smoothing: grayscale;
   user-select: none;
 }
+
 
 @keyframes anime {
   0% {
@@ -73,8 +74,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+
 }
 
-body {
-  height: 100%;
+.frame {
+  aspect-ratio: 2/1.1
 }
