@@ -1,12 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  font-family: sans-serif;
+  font-family: 'Open Sans', sans-serif;
   line-height: 1.5;
   font-weight: 300;
-  font-size: calc(0.4em + 0.5vw);
+  font-size: 1vw;
   letter-spacing: 1px;
   text-rendering: optimizeLegibility;
 
@@ -39,6 +41,20 @@
   }
 }
 
+@keyframes tab-swap {
+  0% {
+    transform: scaleY(0);
+  }
+
+  50% {
+    transform: scaleY(1.2);
+  }
+
+  100% {
+    transform: scaleY(0);
+  }
+}
+
 @keyframes rotate {
   from {
     transform: rotate(360deg);
@@ -58,8 +74,21 @@
   }
 }
 
+@keyframes swapRightToLeft {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(90deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
 .rotating-element {
-  animation: rotate .5s linear infinite;
+  animation: rotate .5s linear forwards, rotate .5s linear forwards;
+  animation-delay: 0s, .5s;
 }
 
 .sliding-element {
@@ -80,4 +109,12 @@
 
 .frame {
   aspect-ratio: 2/1.1
+}
+
+.tab-swap {
+  animation: tab-swap 400ms linear infinite;
+}
+
+.drop-ball {
+  animation: swapRightToLeft 1s linear forwards;
 }

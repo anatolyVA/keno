@@ -8,8 +8,8 @@ export function Tabs({ content }: { content: React.ReactNode }) {
 
   return (
     <div className="flex gap-2">
-      <div className="flex-1">{content}</div>
-      <div className="grid gap-2">
+      <div className="w-full">{content}</div>
+      <div className="grid grid-rows-4 gap-2 w-12">
         <TabButton onSelect={setActiveTab} activeTab={activeTab} name="game">
           Игра
         </TabButton>
@@ -33,6 +33,7 @@ interface TabButtonProps {
   children: React.ReactNode;
   onSelect: (name: string) => void;
 }
+
 function TabButton({ name, activeTab, children, onSelect }: TabButtonProps) {
   const handleClick = () => {
     console.log(name);
@@ -40,14 +41,18 @@ function TabButton({ name, activeTab, children, onSelect }: TabButtonProps) {
   };
   return (
     <button
-      className="bg-center bg-no-repeat w-14 bg-cover h-full rounded-md"
-      style={{
-        backgroundImage: `url(${name === activeTab ? tabPressedImage : tabImage})`,
-        color: name === activeTab ? "white" : "black",
-      }}
+      className="relative w-24 h-12 -rotate-90 origin-bottom"
       onClick={handleClick}
     >
-      {children}
+      <img src={name === activeTab ? tabPressedImage : tabImage}></img>
+      <span
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm uppercase font-semibold"
+        style={{
+          color: name === activeTab ? "white" : "black",
+        }}
+      >
+        {children}
+      </span>
     </button>
   );
 }

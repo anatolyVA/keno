@@ -1,3 +1,3 @@
 export function GamePanelFooter() {
-  return <footer className="bg-black h-6"></footer>;
+  return <footer className="bg-black h-5"></footer>;
 }
