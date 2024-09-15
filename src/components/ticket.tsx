@@ -75,8 +75,8 @@ export function Ticket({
             <span className="text-center">{ticket.win}</span>
           </div>
         ))}
-        {tickets.length < 10 &&
-          Array.from({ length: 10 - tickets.length }).map((_, index) => {
+        {tickets.length < 9 &&
+          Array.from({ length: 9 - tickets.length }).map((_, index) => {
             const lastIndex = tickets.length % 2;
             const isEven = (lastIndex + index) % 2 === 0;
             return (
@@ -90,27 +90,19 @@ export function Ticket({
               </div>
             );
           })}
-        <div
-          className={`grid grid-cols-[7fr_2fr_1fr_2fr] min-h-[1.4375rem] max-h-[1.4375rem] items-center px-1 text-black text-xs bg-[#9acdb2]/70`}
-        >
-          <div className="flex gap-[.1rem] "></div>
-          <span className="text-center"></span>
-          <span className="text-center"></span>
-          <span className="text-center"></span>
-        </div>
-        <div
-          className="absolute -bottom-[.1rem] -left-[.1rem] w-[calc(100%+.2rem)] grid grid-cols-[7fr_2fr_1fr_2fr] min-h-[1.4375rem] bg-cover items-center bg-center bg-no-repeat text-black"
-          style={{
-            backgroundImage: `url(${betBottomImage})`,
-          }}
-        >
-          <span className="text-end mr-4 text-xs uppercase font-semibold">
-            Итого:
-          </span>
-          <span className="text-xs">
-            {tickets.reduce((acc, ticket) => acc + ticket.bet, 0)}
-          </span>
-        </div>
+      </div>
+      <div
+        className="absolute -bottom-[.1rem] -left-[.1rem] w-[calc(100%+.2rem)] grid grid-cols-[7fr_2fr_1fr_2fr] min-h-[1.93rem] bg-cover items-center bg-center bg-no-repeat text-black"
+        style={{
+          backgroundImage: `url(${betBottomImage})`,
+        }}
+      >
+        <span className="text-end mr-4 text-xs uppercase font-semibold">
+          Итого:
+        </span>
+        <span className="text-xs">
+          {tickets.reduce((acc, ticket) => acc + ticket.bet, 0)}
+        </span>
       </div>
     </div>
   );

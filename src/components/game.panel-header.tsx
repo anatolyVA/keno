@@ -1,9 +1,7 @@
 export function GamePanelHeader({
   onFullScreen,
-  onStretch,
 }: {
   onFullScreen: () => void;
-  onStretch: () => void;
 }) {
   return (
     <header className="flex h-[2.1rem] justify-between items-center text-[#d5b577] px-2.5">
@@ -48,11 +46,7 @@ export function GamePanelHeader({
             </svg>
           </div>
         </div>
-        <div
-          className="h-5 w-5 cursor-pointer"
-          title="Растянуть на весь экран"
-          onClick={onStretch}
-        >
+        <div className="h-5 w-5 cursor-pointer" title="Растянуть на весь экран">
           <svg
             className="game-panel__header__controls__icon svg-col-mid"
             viewBox="62.24 63.24 17.125 17.109"

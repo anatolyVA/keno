@@ -1,3 +1,4 @@
+import { useBetCount } from "../lib/useBetCount.ts";
 import { useStore } from "../lib/useStore.ts";
 import appSoundIcon from "../assets/sound_icon.png";
 import appMutedIcon from "../assets/mute_icon.png";
@@ -30,7 +31,7 @@ function formatNumber(number: number): string {
 export function GamePanelFooter() {
   const selectedBalls = useStore((state) => state.selectedBalls);
   const balance = 9000000.35;
-  const bet = 1;
+  const bet = useBetCount((state) => state.bet);
   const maxWin = calculateMaxWinnings(selectedBalls.length, bet);
 
   return (

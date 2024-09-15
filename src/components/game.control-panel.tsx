@@ -19,11 +19,13 @@ import buttonUndo from "../assets/btn-undo.png";
 import buttonRebetMin from "../assets/btn-rebet-min.png";
 // import buttonRebetMinSelected from "../assets/btn-rebet-mode-selected-min.png";
 import buttonRebetX2 from "../assets/btn-rebetx2-min.png";
+import { useBetCount } from "../lib/useBetCount.ts";
 // import buttonRebetX2Selected from "../assets/btn-rebetx2-mode-selected-min.png";
 import { useStore } from "../lib/useStore.ts";
 import btnClick from "../assets/sounds/buttonClick.mp3";
 import btnCross from "../assets/btn-cross-min.png";
 import clearBet from "../assets/sounds/clearBet.mp3";
+import chipSelector from "../assets/sounds/chipSelector.mp3";
 import arrow from "../assets/arrow.png";
 //import arrowSelected from "../assets/arrow-selected.png";
 
@@ -39,6 +41,7 @@ export function GameControlPanel({
   const [isMenuOpen, setIsMenuOpen] = useState(isMenuOpenInit);
   const [randomCount, setRandomCount] = useState(1);
   const isAppMuted = useStore((state) => state.isAppMuted);
+  const bet = useBetCount((state) => state.bet);
   const selectedBalls = useStore((state) => state.selectedBalls);
   const setSelectedBalls = useStore((state) => state.setSelectedBalls);
   const audio = new Audio(btnClick);
@@ -67,7 +70,7 @@ export function GameControlPanel({
     if (selectedBalls.length === 0) return;
     addTicket({
       balls: selectedBalls,
-      bet: 1,
+      bet: bet,
       multiplier: 1,
       win: 0,
     });
@@ -91,7 +94,7 @@ export function GameControlPanel({
 
     addTicket({
       balls: result,
-      bet: 1,
+      bet: bet,
       multiplier: 1,
       win: 0,
     });
@@ -279,7 +282,7 @@ function ControlButton({
     >
       <img src={backgroundImage} className="h-14" />
       <span
-        className={`absolute text-black top-1/2 right-1 text-start -translate-y-1/2 text-sm uppercase font-semibold ${className}`}
+        className={`absolute text-black top-1/2 right-1 text-start -translate-y-1/2 text-[0.8rem] uppercase font-semibold ${className}`}
       >
         {children}
       </span>
@@ -288,30 +291,48 @@ function ControlButton({
 }
 
 function BetCounter() {
-  const [count, setCount] = useState(0);
+  const bet = useBetCount((state) => state.bet);
+  const incrementBet = useBetCount((state) => state.incrementBet);
+  const decrementBet = useBetCount((state) => state.decrementBet);
+  const isAppMuted = useStore((state) => state.isAppMuted);
+  const isGameStarted = useStore((state) => state.isGameStarted);
+  const isGameStarting = useStore((state) => state.isGameStarting);
+  const sound = new Audio(chipSelector);
+
+  const playSound = () => {
+    if (sound && !isAppMuted) sound.play();
+  };
+
   const increment = () => {
-    if (count >= 10) {
-      setCount(1);
-      return;
-    }
-    setCount(count + 1);
+    if (isGameStarted || isGameStarting) return;
+    playSound();
+    incrementBet();
   };
 
   const decrement = () => {
-    if (count <= 1) return;
-    setCount(count - 1);
+    if (isGameStarted || isGameStarting) return;
+    playSound();
+    decrementBet();
   };
 
   return (
     <div className="grid grid-cols-[2fr_2fr_2fr] items-center">
-      <button className="hover:opacity-80" onClick={decrement}>
+      <button
+        disabled={isGameStarted || isGameStarting}
+        className="hover:opacity-80"
+        onClick={decrement}
+      >
         <img src={arrow} />
       </button>
       <span className="flex flex-col text-center font-bold text-2xl">
-        <span>{count}</span>
+        <span>{bet}</span>
         <span className="text-[.5rem] leading-3 font-medium">Ставка</span>
       </span>
-      <button className="hover:opacity-80" onClick={increment}>
+      <button
+        disabled={isGameStarted || isGameStarting}
+        className="hover:opacity-80"
+        onClick={increment}
+      >
         <img src={arrow} className="rotate-180" />
       </button>
     </div>

@@ -75,7 +75,7 @@ export function Stats({
         backgroundSize: "100% 100%",
       }}
     >
-      <h1 className="font-semibold text-lg uppercase">
+      <h1 className="font-semibold text-lg uppercase whitespace-nowrap">
         Рейтинг выпадений шаров за последние 100 раундов
       </h1>
       <div

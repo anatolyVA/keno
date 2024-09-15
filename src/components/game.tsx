@@ -6,7 +6,6 @@ import loadingIcon from "../assets/loading.svg";
 
 export function Game() {
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const [isStretch, setIsStretch] = useState(false);
   const [isFirstRender, setIsFirstRender] = useState(true);
 
   const handleFullScreen = () => {
@@ -33,18 +32,11 @@ export function Game() {
     }
   }, []);
 
-  const handleStretch = () => {
-    setIsStretch((prev) => !prev);
-  };
-
   return (
     <div
-      className={`bg-[#040c17]/80 backdrop-blur-sm flex flex-col ${isFullScreen ? "" : ""} ${isStretch ? "w-[100vw] max-w-[1526px] frame" : "w-[69vw] frame"}`}
+      className={`bg-[#040c17]/80 backdrop-blur-sm flex flex-col w-[69vw] frame`}
     >
-      <GamePanelHeader
-        onFullScreen={handleFullScreen}
-        onStretch={handleStretch}
-      />
+      <GamePanelHeader onFullScreen={handleFullScreen} />
       {isFirstRender ? (
         <div className="flex items-center justify-center flex-1 bg-black">
           <img src={loadingIcon} />
