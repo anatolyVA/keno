@@ -91,6 +91,14 @@ export function Ticket({
             );
           })}
         <div
+          className={`grid grid-cols-[7fr_2fr_1fr_2fr] min-h-[1.4375rem] max-h-[1.4375rem] items-center px-1 text-black text-xs bg-[#9acdb2]/70`}
+        >
+          <div className="flex gap-[.1rem] "></div>
+          <span className="text-center"></span>
+          <span className="text-center"></span>
+          <span className="text-center"></span>
+        </div>
+        <div
           className="absolute -bottom-[.1rem] -left-[.1rem] w-[calc(100%+.2rem)] grid grid-cols-[7fr_2fr_1fr_2fr] min-h-[1.4375rem] bg-cover items-center bg-center bg-no-repeat text-black"
           style={{
             backgroundImage: `url(${betBottomImage})`,
