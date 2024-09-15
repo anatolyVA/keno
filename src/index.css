@@ -4,6 +4,78 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('./assets/fonts/AvenirNextCyr-Medium.woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('./assets/fonts/AvenirNextCyr-Demi.woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('./assets/fonts/AvenirNextCyr-Regular.woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  src: url('./assets/fonts/AvenirNextCyr-Bold.woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avita';
+  src: url('./assets/fonts/AvenirNextCyr-Medium.woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avita';
+  src: url('./assets/fonts/AvenirNextCyr-Demi.woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avita';
+  src: url('./assets/fonts/AvenirNextCyr-Regular.woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avita';
+  src: url('./assets/fonts/AvenirNextCyr-Bold.woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+.font-avenir {
+  font-family: "Avenir Next Cyr", serif}
+
+.font-avita {
+  font-family: "Avita", serif
+}
+
+.outlined-text {
+  font-family: 'Avita', sans-serif; /* Используйте ваш шрифт */
+  text-shadow:
+    -.0625rem -.0625rem 0 #000,
+    .0625rem -.0625rem 0 #000,
+    -.0625rem  .0625rem 0 #000,
+    .0625rem  .0625rem 0 #000; /* Обводка черным цветом */
+}
+
 :root {
   font-family: 'Open Sans', sans-serif;
   line-height: 1.5;
@@ -41,17 +113,23 @@
   }
 }
 
-@keyframes tab-swap {
+@keyframes prev-tab-swap-anim {
   0% {
-    transform: scaleY(0);
-  }
-
-  50% {
-    transform: scaleY(1.2);
+    transform: scaleY(1);
   }
 
   100% {
     transform: scaleY(0);
+  }
+}
+
+@keyframes new-tab-swap-anim {
+  0% {
+    transform: scaleY(0);
+  }
+
+  100% {
+    transform: scaleY(1);
   }
 }
 
@@ -65,12 +143,48 @@
   }
 }
 
+@keyframes sidebar-slide {
+  from {
+    transform: translateX(-5rem);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes sidebar-slide-close {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-5rem);
+  }
+}
+
+@keyframes rotate-left {
+  from {
+    transform: rotate(0deg);
+
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes slideInFromLeft {
   from {
     transform: translateX(100vw);
   }
   to {
     transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100vw);
   }
 }
 
@@ -86,13 +200,39 @@
   }
 }
 
+@keyframes accordion-open {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .rotating-element {
   animation: rotate .5s linear forwards, rotate .5s linear forwards;
   animation-delay: 0s, .5s;
 }
 
+.sidebar-slide {
+  animation: sidebar-slide .2s linear forwards;
+}
+
+.sidebar-slide-close {
+  animation: sidebar-slide-close .2s linear forwards;
+}
+
+.rotating-element-left {
+  animation: rotate-left .5s linear forwards, rotate-left .5s linear forwards;
+  animation-delay: 0s, .5s;
+}
+
 .sliding-element {
   animation: slideInFromLeft 1s forwards ease;
+}
+
+.sliding-element-left {
+  animation: slideInFromRight 2s forwards ease;
 }
 
 .animation {
@@ -111,10 +251,42 @@
   aspect-ratio: 2/1.1
 }
 
-.tab-swap {
-  animation: tab-swap 400ms linear infinite;
+.prev-tab-swap {
+  animation: prev-tab-swap-anim 125ms linear forwards;
+}
+
+.new-tab-swap {
+  animation: new-tab-swap-anim 125ms linear forwards;
 }
 
 .drop-ball {
   animation: swapRightToLeft 1s linear forwards;
+}
+
+.history-item__row {
+
+}
+
+.history-item__row::before {
+  content:'';
+  width:0;
+  height:0;
+  border-top: .25rem solid transparent;
+  border-left: .375rem solid #a9baca;
+  border-bottom: .25rem solid transparent;
+  border-radius: .125rem;
+  position:absolute;
+  top:1.05rem;
+  left:.5rem;
+  -webkit-transition:.2s ease;
+  transition:.2s ease
+}
+
+.history-item-active .history-item__row::before {
+  transform: rotate(90deg);
+  border-left-color: #c50030;
+}
+
+.accordion-content-open {
+  animation: accordion-open .3s linear forwards;
 }

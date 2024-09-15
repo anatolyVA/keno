@@ -5,17 +5,27 @@ import zoneLockImage from "../assets/zone-lock.png";
 import zoneLock2Image from "../assets/zone-lock2.png";
 import zoneActiveImage from "../assets/zone-action.png";
 import zoneWinImage from "../assets/zone-win.png";
+import firstChip from "../assets/sounds/firstChip.mp3";
 import { useStore } from "../lib/useStore.ts";
+import { cold, hot } from "./stats.tsx";
 
 export function ButtonsGrid() {
   const [activeBalls, setActiveBalls] = useState<number[]>([]);
   const [isMouseDown, setIsMouseDown] = useState(false);
+  const isAppMuted = useStore((state) => state.isAppMuted);
+  const audio = new Audio(firstChip);
   const selectedBalls = useStore((state) => state.selectedBalls);
   const setSelectedBalls = useStore((state) => state.setSelectedBalls);
   const isGameStarted = useStore((state) => state.isGameStarted);
+  const isGameStarting = useStore((state) => state.isGameStarting);
   const balls = useStore((state) => state.numbers);
 
   const handleSelectChange = (number: number) => {
+    if (audio && !isAppMuted) {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.play();
+    }
     if (selectedBalls.includes(number)) {
       setSelectedBalls(selectedBalls.filter((n) => n !== number));
     } else {
@@ -57,7 +67,7 @@ export function ButtonsGrid() {
 
   return (
     <div
-      className="grid grid-cols-10 gap-[.1rem] h-full"
+      className="grid grid-cols-10 gap-[.1rem] h-full font-avita"
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
@@ -66,7 +76,7 @@ export function ButtonsGrid() {
         <SelectBallButton
           isSelected={selectedBalls.includes(number)}
           isActive={activeBalls.includes(number)}
-          isDisabled={isGameStarted}
+          isDisabled={isGameStarted || isGameStarting}
           onSelect={handleSelectChange}
           isMouseDown={isMouseDown}
           key={number}
@@ -94,17 +104,28 @@ function SelectBallButton({
 }) {
   const tickets = useStore((state) => state.tickets);
   const [backgroundImage, setBackgroundImage] = useState(zoneImage);
-  const [isFlipped, setIsFlipped] = useState(false); // отслеживаем, завершился ли поворот
+  const [isHalfFlipped, setIsHalfFlipped] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
 
   useEffect(() => {
     if (isActive) {
       setTimeout(() => {
-        setIsFlipped(true); // Меняем картинку на 50% анимации (после 250мс из 500мс)
+        setIsHalfFlipped(true);
       }, 500);
     } else {
-      setIsFlipped(false); // Сбрасываем картинку, если не активен
+      setIsHalfFlipped(false);
     }
   }, [isActive]);
+
+  useEffect(() => {
+    if (isHalfFlipped) {
+      setTimeout(() => {
+        setIsFlipped(true);
+      }, 500);
+    } else {
+      setIsFlipped(false);
+    }
+  }, [isHalfFlipped]);
 
   const countInTickets = tickets.filter((ticket) =>
     ticket.balls.includes(number),
@@ -143,6 +164,10 @@ function SelectBallButton({
     onSelect(number);
   };
 
+  const isHot = hot.flatMap((stat) => stat.number).includes(number);
+  const isCold = cold.flatMap((stat) => stat.number).includes(number);
+  const showHotCold = useStore((state) => state.showHotCold);
+
   const isWin =
     isActive && tickets.flatMap((value) => value.balls).includes(number);
 
@@ -151,9 +176,9 @@ function SelectBallButton({
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
       onMouseDown={handleSelectChange}
-      className={`h-full text-[#e0e0e0] font-semibold bg-no-repeat bg-center bg-cover text-2xl ${isSelected ? "animation" : ""} ${isActive ? "drop-ball" : ""} ${isDisabled ? "cursor-default" : "cursor-pointer"}`}
+      className={`h-full outlined-text ${showHotCold ? (isHot ? "text-[#ff5050]" : isCold ? "text-[#41a0ff]" : "text-white") : "text-white"} font-semibold bg-no-repeat bg-center bg-cover text-2xl ${isSelected && !isDisabled ? "animation" : ""} ${isActive && !isFlipped ? "drop-ball" : ""} ${isDisabled ? "cursor-default" : "cursor-pointer"}`}
       style={{
-        backgroundImage: `url(${isFlipped ? (isWin ? zoneWinImage : zoneActiveImage) : backgroundImage})`,
+        backgroundImage: `url(${isHalfFlipped ? (isWin ? zoneWinImage : zoneActiveImage) : backgroundImage})`,
       }}
     >
       {number}
