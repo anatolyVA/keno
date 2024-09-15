@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useStore } from "../lib/useStore.ts";
 import { History } from "./history.tsx";
 import { Ticket } from "./ticket.tsx";
@@ -10,10 +10,6 @@ export function Accordion() {
   );
   const audio = new Audio(btnClick);
   const isAppMuted = useStore((state) => state.isAppMuted);
-
-  useEffect(() => {
-    console.log(collapsedElem);
-  }, [collapsedElem]);
 
   const toggleCollapsedElement = (element: typeof collapsedElem) => {
     setCollapsedElem((prev) =>

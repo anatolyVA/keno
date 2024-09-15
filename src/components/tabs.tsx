@@ -126,7 +126,6 @@ interface TabButtonProps {
 
 function TabButton({ name, activeTab, children, onSelect }: TabButtonProps) {
   const handleClick = () => {
-    console.log(name);
     onSelect(name);
   };
   return (

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import tableHeader from "../assets/table-header.png";
 import { useStore } from "../lib/useStore.ts";
 import expand from "../assets/expand.png";
@@ -85,12 +84,3 @@ export function History({
     </div>
   );
 }
-
-// function HistoryRow({ history }: { history: HistoryProps }) {
-//   return (
-//     <div className="grid grid-cols-[1fr_6fr] h-[1.4375rem] px-1 text-black text-xs w-full">
-//       <span className="text-center">{history.count}</span>
-//       <span className="text-center">{history.balls.sort().join(",")}</span>
-//     </div>
-//   );
-// }

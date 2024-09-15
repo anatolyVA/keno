@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import expand from "../assets/expand.png";
 import tableHeader from "../assets/table-header.png";
 import { useStore } from "../lib/useStore.ts";

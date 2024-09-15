@@ -8,14 +8,14 @@ import { useHistoryModal } from "../lib/useHistoryModal.ts";
 import { useStore } from "../lib/useStore.ts";
 import { Accordion } from "./accordion.tsx";
 import { BallsList } from "./balls-list.tsx";
-import { ButtonsGrid } from "./buttons-grid.tsx";
+//import { ButtonsGrid } from "./buttons-grid.tsx";
 import { GameControlPanel } from "./game.control-panel.tsx";
 import { GameTimer } from "./game.timer.tsx";
 import backgroundImage from "../assets/bg-green.jpg";
 import headerImage from "../assets/header.png";
 import jackpotImage from "../assets/JackPot.png";
 import myBetsImage from "../assets/btn-my-bets.png";
-import myBetsSelectedImage from "../assets/btn-my-bets-selected.png";
+//import myBetsSelectedImage from "../assets/btn-my-bets-selected.png";
 import { HistoryModal } from "./history-modal.tsx";
 import { Tabs } from "./tabs.tsx";
 
@@ -61,7 +61,6 @@ export function GamePanel() {
         </div>
       </div>
       <GameControlPanel
-        isInfoOpen={isInfoOpen}
         onInfoToggle={handleInfoToggle}
         isMenuOpen={isMenuOpen}
         onOpenMenu={handleMenuStateChange}

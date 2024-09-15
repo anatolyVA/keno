@@ -1,5 +1,3 @@
-//import { useState } from "react";
-
 import { useEffect, useState } from "react";
 import { useStore } from "../lib/useStore.ts";
 
@@ -13,36 +11,41 @@ export function GameTimer({ seconds }: { seconds: number }) {
   const [timer, setTimer] = useState(seconds);
 
   useEffect(() => {
+    let interval = null;
+    let delayTimeout = null;
+    let gameTimeout: number | null | undefined = null;
+
     if (timer > 0) {
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         setTimer((prev) => (prev > 0 ? prev - 0.1 : 0));
       }, 100);
-      return () => clearInterval(interval);
     } else {
       setIsGameStarting(true);
       setIsGameStarted(true);
-      const delayTimeout = setTimeout(() => {
-        setIsGameStarting(false);
-        generateRandomNumbers(); // Генерация чисел после задержки
 
-        // Таймер для завершения игры
-        const timeout = setTimeout(() => {
+      delayTimeout = setTimeout(() => {
+        setIsGameStarting(false);
+        generateRandomNumbers();
+
+        gameTimeout = setTimeout(() => {
           clearTickets();
           setIsGameStarted(false);
-          setTimer(seconds); // Перезапуск таймера
+          setTimer(seconds);
         }, 25000);
-
-        return () => clearTimeout(timeout); // Очищаем timeout при размонтировании
-      }, 2000); // Задержка 2 секунды
-
-      return () => clearTimeout(delayTimeout); // Очищаем timeout при размонтировании
+      }, 2000);
     }
-  }, [timer, seconds]);
+
+    return () => {
+      if (interval) clearInterval(interval);
+      if (delayTimeout) clearTimeout(delayTimeout);
+      if (gameTimeout) clearTimeout(gameTimeout);
+    };
+  }, [timer, seconds, generateRandomNumbers, clearTickets]);
 
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `0${minutes}:${seconds < 10 ? "0" : ""}${seconds.toFixed()}`;
+    const seconds = Math.floor(time % 60); // Округляем секунды до целого числа
+    return `0${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   return (

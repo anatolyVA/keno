@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import buttonMenuImage from "../assets/btn-menu2-min.png";
 import autoplayButton from "../assets/autoplay.png";
 import autoplayPressedButton from "../assets/autoplay-pressed.png";
@@ -25,15 +25,13 @@ import btnClick from "../assets/sounds/buttonClick.mp3";
 import btnCross from "../assets/btn-cross-min.png";
 import clearBet from "../assets/sounds/clearBet.mp3";
 import arrow from "../assets/arrow.png";
-import arrowSelected from "../assets/arrow-selected.png";
+//import arrowSelected from "../assets/arrow-selected.png";
 
 export function GameControlPanel({
-  isInfoOpen,
   onInfoToggle,
   isMenuOpen: isMenuOpenInit,
   onOpenMenu,
 }: {
-  isInfoOpen: boolean;
   onInfoToggle: () => void;
   isMenuOpen: boolean | null;
   onOpenMenu: (state: boolean) => void;
@@ -58,10 +56,6 @@ export function GameControlPanel({
       audio.play();
     }
   };
-
-  useEffect(() => {
-    console.log(prevTickets);
-  }, [prevTickets]);
 
   const handleInfoToggle = () => {
     onInfoToggle();
@@ -295,16 +289,6 @@ function ControlButton({
 
 function BetCounter() {
   const [count, setCount] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
   const increment = () => {
     if (count >= 10) {
       setCount(1);
@@ -320,22 +304,14 @@ function BetCounter() {
 
   return (
     <div className="grid grid-cols-[2fr_2fr_2fr] items-center">
-      <button
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={decrement}
-      >
+      <button className="hover:opacity-80" onClick={decrement}>
         <img src={arrow} />
       </button>
       <span className="flex flex-col text-center font-bold text-2xl">
         <span>{count}</span>
         <span className="text-[.5rem] leading-3 font-medium">Ставка</span>
       </span>
-      <button
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onClick={increment}
-      >
+      <button className="hover:opacity-80" onClick={increment}>
         <img src={arrow} className="rotate-180" />
       </button>
     </div>
