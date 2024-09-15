@@ -1,7 +1,7 @@
-import K from "../assets/k.png";
-import E from "../assets/e.png";
-import N from "../assets/n.png";
-import O from "../assets/o.png";
+import K from "../assets/K.png";
+import E from "../assets/E.png";
+import N from "../assets/N.png";
+import O from "../assets/O.png";
 import frMin from "../assets/4min.png";
 
 export function Logo() {
